@@ -3,222 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos Hot🔥</title>
+    <title>Video con anuncio popunder</title>
     <style>
-        /* Estilos de la página y el contenedor principal */
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #fff; /* Fondo BLANCO */
-            color: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             min-height: 100vh;
-            position: relative; 
-        }
-
-        /* Estilo para el contenedor del reproductor 16:9 */
-        .video-container {
-            width: 90vw; 
-            max-width: 800px;
-            aspect-ratio: 16 / 9;
-            margin-bottom: 20px;
-            background-color: #000; 
-            position: relative; 
-            overflow: hidden;
-            border-radius: 8px; 
-        }
-
-        /* Estilo para la etiqueta de video para que ocupe todo el contenedor */
-        .video-container video {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: contain; 
-        }
-
-        /* Contenedor para los botones (ahora son 3) */
-        .controls-container {
+            background: #1a1a1a;
             display: flex;
-            gap: 15px; 
-            margin-top: 20px;
-            z-index: 5; 
-            flex-wrap: wrap; 
             justify-content: center;
-        }
-
-        /* Estilo de los botones */
-        .action-button {
-            display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 12px 25px;
-            border: 2px solid #000;
-            border-radius: 25px; 
-            background-color: #000;
-            color: #fff;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            transition: all 0.2s ease-in-out;
-            min-width: 160px;
-            text-decoration: none; 
+            font-family: Arial, sans-serif;
         }
-
-        .action-button:hover {
-            background-color: #222;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-            transform: translateY(-2px);
-        }
-
-        /* Estilo específico para el logo SVG de Telegram */
-        .telegram-icon {
-            margin-right: 8px;
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-
-        /* Capa transparente que cubre TODA la pantalla para el primer clic */
-        #click-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .contenedor {
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.01); 
-            z-index: 1000; /* Cobertura total */
-            cursor: pointer;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
         }
-
-        /* Estilo para ELEVAR el botón de Telegram por encima de la capa transparente */
-        #telegram-button {
-            z-index: 1001; /* Mayor que el overlay (1000) */
-            position: relative; /* Necesario para que z-index funcione correctamente */
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            background: #000;
         }
-
+        .nota {
+            color: #ccc;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
-
-    <!-- 
-        CAPA TRANSPARENTE QUE CUBRE TODO (Se elimina al primer clic)
-        El botón de Telegram tiene un z-index más alto y es clickeable a través de esta capa.
-    -->
-    <div id="click-overlay"></div>
-
-    <!-- REPRODUCTOR DE VIDEO 16:9 -->
-    <div class="video-container">
-        <video id="main-video" autoplay muted controls>
-            <!-- 
-                IMPORTANTE: Reemplaza "URL_DE_TU_VIDEO.mp4" con el enlace real a tu archivo MP4 
-            -->
-            <source src="https://qu.ax/gsjJg.mp4" type="video/mp4">
+    <div class="contenedor">
+        <!-- Reproductor de video sin autoplay, con sonido disponible -->
+        <video controls playsinline preload="auto">
+            <source src="https://qu.ax/7Zqtr.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
         </video>
+        <div class="nota">
+            Haz clic en el video para reproducirlo.
+        </div>
     </div>
 
-    <!-- CONTROLES (3 BOTONES) -->
-    <div class="controls-container">
-        <!-- BOTÓN 1: Activar/Silenciar Sonido -->
-        <button id="unmute-button" class="action-button" onclick="toggleMute()">
-            <span id="mute-status">Activar sonido</span>
-        </button>
-
-        <!-- BOTÓN 2: Descargar Video -->
-        <button id="download-button" class="action-button" onclick="downloadVideo()">
-            Descargar
-        </button>
-        
-        <!-- BOTÓN 3: Unirse a Telegram (SIEMPRE ACTIVO) -->
-        <a id="telegram-button" href="https://t.me/+AwiEb-zcBtliNTkx" target="_blank" class="action-button" style="background-color: #0088CC; border-color: #0088CC;">
-            <!-- Logo SVG de Telegram -->
-            <svg class="telegram-icon" viewBox="0 0 24 24">
-                <path d="M19.982 3.655a.443.443 0 0 0-.462-.358L3.251 9.426a.541.541 0 0 0-.083.99l4.57 2.067 10.421-6.522c.162-.1.354.02.227.175L10.3 15.353l-.22.651a.542.542 0 0 0 .807.457l2.844-2.126 4.793 3.593c.31.232.748.06.828-.31l2.673-12.72c.07-.333-.12-.66-.453-.733z"/>
-            </svg>
-            Unirse a Telegram
-        </a>
-    </div>
-
+    <!-- Script del anuncio popunder (se carga al final para no bloquear el video) -->
     <script>
-        // Variables de configuración
-        const VIDEO_URL = "https://qu.ax/gsjJg.mp4"; 
-        const EXTERNAL_LINK = "https://otieu.com/4/9970947";
-        
-        // Elementos del DOM
-        const videoElement = document.getElementById('main-video');
-        const muteStatusSpan = document.getElementById('mute-status');
-        const clickOverlay = document.getElementById('click-overlay');
-        
-        // --- 1. LÓGICA DE CLIC ÚNICO Y REDIRECCIÓN ---
-
-        /**
-         * Maneja el primer clic del usuario en la pantalla.
-         */
-        function handleFirstClick() {
-            // 1. Abrir el enlace en una nueva pestaña
-            window.open(EXTERNAL_LINK, '_blank');
-
-            // 2. Eliminar el overlay para permitir la interacción normal
-            clickOverlay.remove();
-            
-            // 3. Quitar el listener (limpieza)
-            clickOverlay.removeEventListener('click', handleFirstClick);
-        }
-
-        // Asigna el manejador de eventos a la capa de overlay. Este evento NO se dispara si el clic cae en el botón de Telegram.
-        clickOverlay.addEventListener('click', handleFirstClick);
-
-
-        // --- 2. LÓGICA DE FIN DE VIDEO ---
-
-        /**
-         * Abre el enlace externo cuando el video termina.
-         */
-        function openLinkOnVideoEnd() {
-            // Aseguramos que el video haya finalizado.
-            if (videoElement.paused && videoElement.currentTime >= videoElement.duration) {
-                window.open(EXTERNAL_LINK, '_blank');
-            }
-        }
-        
-        // Escucha el evento 'ended' que se dispara cuando el video termina
-        videoElement.addEventListener('ended', openLinkOnVideoEnd);
-
-        // --- 3. LÓGICA DE BOTONES ---
-
-        /**
-         * Alterna el estado de silencio (mute) del video y actualiza el texto del botón.
-         */
-        function toggleMute() {
-            videoElement.muted = !videoElement.muted; 
-
-            if (videoElement.muted) {
-                muteStatusSpan.textContent = "Activar sonido";
-            } else {
-                muteStatusSpan.textContent = "Silenciar";
-            }
-        }
-
-        /**
-         * Inicia la descarga del video.
-         */
-        function downloadVideo() {
-            const link = document.createElement('a');
-            link.href = VIDEO_URL;
-            
-            const fileName = VIDEO_URL.substring(VIDEO_URL.lastIndexOf('/') + 1) || 'video_descargado.mp4';
-            link.download = fileName; 
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
+        (function(s){
+            s.dataset.zone = '10273232';
+            s.src = 'https://al5sm.com/tag.min.js';
+        })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
     </script>
 </body>
 </html>
-
